@@ -1,0 +1,16 @@
+FONT_SIZE     = 7
+FONT_STYLE    = "font-size:"+str(FONT_SIZE)+"px; font-family:Arial"
+LEFT_OFFSET   = 5
+TOP_OFFSET    = 5
+IMG_SIZE      = (600,100)
+
+SQUARE_SIZE   = 80
+SQUARE_STROKE = 2
+SQ_TEXT_OFFSET= 10
+SQUARE_OFFSET = 20
+
+LINE_STROKE   = 1
+
+
+LINE_H_OFFSET = 1
+LINE_W_OFFSET = 2
