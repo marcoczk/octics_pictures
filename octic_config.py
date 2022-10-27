@@ -1,6 +1,7 @@
 FONT_SIZE     = 7
 FONT_STYLE    = "font-size:"+str(FONT_SIZE)+"px; font-family:Arial"
 IMG_SIZE      = (600, 120)
+IMG_DIRECTORY = "pics/"
 
 SQUARE_SIZE   = 80
 SQUARE_STROKE = 2

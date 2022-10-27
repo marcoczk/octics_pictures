@@ -61,7 +61,7 @@ def draw_line(dwg, pos, txt, line_info):
     )
     dwg.add(dwg.text(
         txt,
-        insert=(pos[0] + line_poss[2][0], pos[1] + line_poss[2][1]),
+        insert=(pos[0] + line_poss[2][0] - int(len(txt)*FONT_SIZE/4), pos[1] + line_poss[2][1]),
         style=FONT_STYLE))
 
 
