@@ -17,51 +17,42 @@ def draw_square(dwg, pos, txt):
         style=FONT_STYLE))
 
 
-# each line type returns a triple: (line_start, line_end, text_pos)
-def get_face_coords(face, pos):
-    coords = (0, 0)
-    if face == 1:
-        coords = (SQUARE_SIZE * pos, 0)
-    elif face == 2:
-        coords = (SQUARE_SIZE, SQUARE_SIZE * pos)
-    elif face == 3:
-        coords = (SQUARE_SIZE * pos, SQUARE_SIZE)
-    elif face == 4:
-        coords = (0, SQUARE_SIZE * pos)
-    return int(coords[0]), int(coords[1])
-
-
-def get_line_coords(start_face, start_pos, end_face, end_pos):
-    start_coords = get_face_coords(start_face, start_pos)
-    end_coords = get_face_coords(end_face, end_pos)
-
-    offset_vect = (0, 0)
-    offset = LINE_TEXT_OFFSET
-    if start_face == 1:
+def get_line_coords(x1, y1, x2, y2):
+    start_coords = int(SQUARE_SIZE * x1), int(SQUARE_SIZE * y1)
+    end_coords = int(SQUARE_SIZE * x2), int(SQUARE_SIZE * y2)
+    offset_vect = 0, 0
+    if y1 == 0:
         offset_vect = (0, -LINE_TEXT_OFFSET)
-    elif start_face == 2:
-        offset_vect = (LINE_TEXT_OFFSET, 0)
-    elif start_face == 3:
-        offset_vect = (0, LINE_TEXT_OFFSET + FONT_SIZE / 2)
-    elif start_face == 4:
+    elif x1 == 0:
         offset_vect = (-LINE_TEXT_OFFSET - FONT_SIZE / 2, 0)
-
+    elif y1 == 1:
+        offset_vect = (0, LINE_TEXT_OFFSET + FONT_SIZE / 2)
+    elif x1 == 0:
+        offset_vect = (-LINE_TEXT_OFFSET - FONT_SIZE / 2, 0)
     text_coords = (start_coords[0] + offset_vect[0], start_coords[1] + offset_vect[1])
-
     return start_coords, end_coords, text_coords
 
 
 def draw_line(dwg, pos, txt, line_info):
     line_poss = get_line_coords(line_info[0], line_info[1], line_info[2], line_info[3])
-    dwg.add(dwg.line(
-        start=(pos[0] + line_poss[0][0], line_poss[0][1] + pos[1]),
-        end=(pos[0] + line_poss[1][0], line_poss[1][1] + pos[1]),
-        stroke_width=LINE_STROKE,
-        stroke="black")
-    )
+    if len(line_info) > 4 and line_info[4] == 'd':
+        dwg.add(dwg.line(
+            start=(pos[0] + line_poss[0][0], line_poss[0][1] + pos[1]),
+            end=(pos[0] + line_poss[1][0], line_poss[1][1] + pos[1]),
+            stroke_width=LINE_STROKE,
+            stroke="black",
+            style='stroke-dasharray:"3"')
+        )
+    else:
+        dwg.add(dwg.line(
+            start=(pos[0] + line_poss[0][0], line_poss[0][1] + pos[1]),
+            end=(pos[0] + line_poss[1][0], line_poss[1][1] + pos[1]),
+            stroke_width=LINE_STROKE,
+            stroke="black")
+        )
     dwg.add(dwg.text(
         txt,
-        insert=(pos[0] + line_poss[2][0] - int(len(txt)*FONT_SIZE/4), pos[1] + line_poss[2][1]),
+        insert=(pos[0] + line_poss[2][0] - int(len(txt) * FONT_SIZE / 4), pos[1] + line_poss[2][1]),
         style=FONT_STYLE))
 
 
