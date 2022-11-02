@@ -78,6 +78,7 @@ class OcticSquares:
         self.dwg = svgwrite.Drawing(filename=filename, size=IMG_SIZE)
 
         self.squares = {}
+        self.lines = {}
         self.curr_pos = (LEFT_OFFSET, TOP_OFFSET)
         for i in range(1, num_of_squares + 1):
             sq_id = "P" + str(i)
