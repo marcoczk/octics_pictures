@@ -73,31 +73,40 @@ def draw_circle(dwg, pos, txt, center, size):
 
 
 class OcticSquares:
-    def __init__(self, filename, num_of_squares):
+    def __init__(self, num_of_squares):
         self.num_of_squares = num_of_squares
-        self.dwg = svgwrite.Drawing(filename=filename, size=IMG_SIZE)
-
         self.squares = {}
         self.lines = {}
         self.curr_pos = (LEFT_OFFSET, TOP_OFFSET)
         for i in range(1, num_of_squares + 1):
-            sq_id = "P" + str(i)
-            draw_square(self.dwg, self.curr_pos, sq_id)
-            self.squares[sq_id] = self.curr_pos
+            label = "P" + str(i)
+            self.squares[label] = {"label": label, "pos": self.curr_pos}
             self.curr_pos = (self.curr_pos[0] + SQUARE_SIZE + SQUARE_OFFSET, self.curr_pos[1])
 
     def add_square(self, label):
-        draw_square(self.dwg, self.curr_pos, label)
-        self.squares[label] = self.curr_pos
+        self.squares[label] = {"label": label, "pos": self.curr_pos}
         self.curr_pos = (self.curr_pos[0] + SQUARE_SIZE + SQUARE_OFFSET, self.curr_pos[1])
 
-    def add_lines(self, squares, label, line_info):
-        for square in squares:
-            draw_line(self.dwg, self.squares[square], label, line_info)
+    def add_lines(self, square, label, line_info, printed_label=None):
+        if printed_label == None: printed_label = label
+        self.lines[square + ":" + label] = {"label": printed_label, "square": square, "line_info": line_info}
 
-    def add_circles(self, squares, label, center, size):
-        for square in squares:
-            draw_circle(self.dwg, self.squares[square], label, center, size)
+    def remove_square(self, label):
+        del self.squares[label]
 
-    def save(self):
-        self.dwg.save()
+    def remove_line(self, label):
+        del self.lines[label]
+
+    # def add_circles(self, squares, label, center, size):
+    #     for square in squares:
+    #         draw_circle(self.dwg, self.squares[square], label, center, size)
+
+    def render(self, filename):
+        dwg = svgwrite.Drawing(filename=filename, size=IMG_SIZE)
+        for square_label in self.squares:
+            square = self.squares[square_label]
+            draw_square(dwg, square["pos"], square["label"])
+        for line_label in self.lines:
+            line = self.lines[line_label]
+            draw_line(dwg, self.squares[line["square"]]["pos"], line["label"], line["line_info"])
+        dwg.save()
