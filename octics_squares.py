@@ -73,7 +73,8 @@ def draw_circle(dwg, pos, txt, center, size):
 
 
 class OcticSquares:
-    def __init__(self, num_of_squares):
+    def __init__(self, num_of_squares, _IMG_SIZE=IMG_SIZE):
+        self.IMG_SIZE = _IMG_SIZE
         self.num_of_squares = num_of_squares
         self.squares = {}
         self.lines = {}
@@ -88,7 +89,7 @@ class OcticSquares:
         self.curr_pos = (self.curr_pos[0] + SQUARE_SIZE + SQUARE_OFFSET, self.curr_pos[1])
 
     def add_lines(self, square, label, line_info, printed_label=None):
-        if printed_label == None: printed_label = label
+        if printed_label is None: printed_label = label
         self.lines[square + ":" + label] = {"label": printed_label, "square": square, "line_info": line_info}
 
     def remove_square(self, label):
@@ -102,7 +103,7 @@ class OcticSquares:
     #         draw_circle(self.dwg, self.squares[square], label, center, size)
 
     def render(self, filename):
-        dwg = svgwrite.Drawing(filename=filename, size=IMG_SIZE)
+        dwg = svgwrite.Drawing(filename=filename, size=self.IMG_SIZE)
         for square_label in self.squares:
             square = self.squares[square_label]
             draw_square(dwg, square["pos"], square["label"])
