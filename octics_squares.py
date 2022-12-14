@@ -1,6 +1,5 @@
 import svgwrite
 from octic_config import *
-from math import sqrt
 
 
 def draw_square(dwg, pos, txt):
@@ -65,8 +64,7 @@ def draw_line(dwg, pos, txt, line_info, txt_offset, dashed):
 
 
 def draw_circle(dwg, pos, txt, center, radius):
-    circle_center = get_point_coords(center[0],center[1])
-    print(circle_center)
+    circle_center = get_point_coords(center[0], center[1])
     dwg.add(dwg.circle(
         center=(pos[0] + circle_center[0], pos[1] + circle_center[1]),
         r=radius,
@@ -85,11 +83,11 @@ def find_intersection_of_lines(line1_start, line1_end, line2_start, line2_end):
     x12, y12 = line1_end[0], line1_end[1]
     x21, y21 = line2_start[0], line2_start[1]
     x22, y22 = line2_end[0], line2_end[1]
-    det = float((x11-x12) * (y21-y22) - (y11 - y12) * (x21 - x22))
+    det = float((x11 - x12) * (y21 - y22) - (y11 - y12) * (x21 - x22))
     if det == 0:
         raise ZeroDivisionError("lines are parallel or coincidental")
-    x = ((x11 * y12 - y11 * x12) * (x21 - x22) - (x11 - x12) * (x21 * y22 - y21 * x22))/det
-    y = ((x11 * y12 - y11 * x12) * (y21 - y22) - (y11 - y12) * (x21 * y22 - y21 * x22))/det
+    x = ((x11 * y12 - y11 * x12) * (x21 - x22) - (x11 - x12) * (x21 * y22 - y21 * x22)) / det
+    y = ((x11 * y12 - y11 * x12) * (y21 - y22) - (y11 - y12) * (x21 * y22 - y21 * x22)) / det
     return x, y
 
 
@@ -128,11 +126,19 @@ class OcticSquares:
         del self.squares[label]
 
     def remove_line(self, line_label):
+        circles_to_remove = []
         for circle_l in self.circles:
             circle = self.circles[circle_l]
             if line_label in [circle["line1"], circle["line2"]]:
-                del self.circles[circle]
+                circles_to_remove.append(circle_l)
+
+        for circle_l in circles_to_remove:
+            del self.circles[circle_l]
         del self.lines[line_label]
+
+    def remove_lines(self, line_labels):
+        for label in line_labels:
+            self.remove_line(label)
 
     def mark_no_intersection(self, square_label, line1_label, line2_label):
         circle_label = square_label + ":" + line1_label + ":" + line2_label
@@ -142,7 +148,7 @@ class OcticSquares:
             (l1_inf[0], l1_inf[1]), (l1_inf[2], l1_inf[3]),
             (l2_inf[0], l2_inf[1]), (l2_inf[2], l2_inf[3]))
         self.circles[circle_label] = {"label": circle_label, "pos": intersection, "square": square_label,
-                                      "line1": line1_label, "line2": line2_label}
+                                      "line1": square_label+":"+line1_label, "line2": square_label+":"+line2_label}
 
     def add_circles(self, squares, label, center, size):
         for square in squares:
