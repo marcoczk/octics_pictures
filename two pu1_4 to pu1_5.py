@@ -81,7 +81,7 @@ octic_squares2pdf(squares, "two pu1_4 to pu1_5_2")
 
 squares.add_square("5'")
 squares.remove_line("4:E5")
-squares.add_lines("4", "5", [0.5, 0, 0.5, 1], dashed=True)
+squares.add_lines("4", "5'", [0.5, 0, 0.5, 1], dashed=True, printed_label="5")
 squares.remove_line("5:E4")
 squares.add_lines("5", "5", [0.5, 0, 0.5, 1], dashed=True)
 squares.remove_line("E:45")
@@ -91,3 +91,25 @@ squares.add_lines("5'", "5", [0, 0.5, 1, 0.5])
 squares.add_lines("5'", "E", [0, 0.7, 1, 0.7])
 
 octic_squares2pdf(squares, "two pu1_4 to pu1_5_3")
+
+squares.remove_line("4:5")
+squares.remove_line("4:5'")
+squares.remove_line("5:4")
+squares.remove_line("5':4")
+
+octic_squares2pdf(squares, "two pu1_4 to pu1_5_4")
+
+# squares.add_square("5'")
+#
+# squares.add_lines("5'","4",[0,0.2,1,0.2])
+# squares.add_lines("5'","5",[0,0.5,1,0.5])
+# squares.add_lines("5'","E",[0,0.8,1,0.8])
+#
+# squares.remove_lines("4:E5")
+# squares.remove_lines("5:E4")
+# squares.remove_lines("E:45")
+# squares.add_lines("E", "5", [0.5, 0, 0.5, 1], dashed=True)
+# squares.add_lines("5", "5", [0.5, 0, 0.5, 1], dashed=True)
+# squares.add_lines("4", "5", [0.5, 0, 0.5, 1], dashed=True)
+
+# octic_squares2pdf(squares, "two pu1_4 to pu1_5_4")

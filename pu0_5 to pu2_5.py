@@ -75,16 +75,12 @@ squares.remove_line("E:1")
 octic_squares2pdf(squares, "pu0_5 to pu2_5_2")
 
 squares.remove_square("E")
-squares.add_lines("", "b", [0.33, 0.45, 0.57, 0.65], dashed=True, printed_label="", squares=["2", "3", "4", "5"])
-squares.add_lines("", "c", [0.33, 0.65, 0.57, 0.85], dashed=True, printed_label="", squares=["2", "3", "4", "5"])
+squares.add_lines("", "b", [0.33, 0.45, 0.57, 0.65], dashed=True, printed_label="", squares=["3", "4", "5"])
+squares.add_lines("", "c", [0.33, 0.65, 0.57, 0.85], dashed=True, printed_label="", squares=["5"])
 squares.add_lines("", "E", [0.5, 0, 0.5, 1], dashed=True, squares=["2", "3", "4", "5"], printed_label="")
 
-squares.mark_no_intersection("2", "3", "E")
-squares.mark_no_intersection("2", "5", "E")
 squares.mark_no_intersection("3", "2", "E")
-squares.mark_no_intersection("3", "4", "E")
 squares.mark_no_intersection("4", "3", "E")
-squares.mark_no_intersection("4", "5", "E")
 squares.mark_no_intersection("5", "2", "E")
 squares.mark_no_intersection("5", "4", "E")
 

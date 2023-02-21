@@ -127,13 +127,30 @@ squares.add_lines("1", "5'", [0, 0.8, 1, 0.8])
 squares.add_lines("4", "5'", [0, 0.8, 1, 0.8])
 squares.add_lines("5", "5'", [0, 0.8, 1, 0.8])
 
-squares.add_lines("5'", "1", [0, 0.2, 1, 0.2])
+squares.add_lines("5'", "1", [0, 0.3, 1, 0.3])
 squares.add_lines("5'", "4", [0, 0.5, 1, 0.5])
-squares.add_lines("5'", "5", [0, 0.8, 1, 0.8])
+squares.add_lines("5'", "5", [0, 0.7, 1, 0.7])
 
 squares.add_lines("A", "5'", [0.14, 0.4, 0.26, 0.6, 'd'], txt_offset=(-4,0))
+squares.add_lines("5'","A",[0.5,0,0.5,1], dashed=True)
 
 octic_squares2pdf(squares, "new pu1_5 to pu2_5_5")
+
+squares.remove_line("1:A")
+squares.remove_line("4:A")
+squares.remove_line("A:1")
+squares.remove_line("A:4")
+
+
+squares.add_lines("5'", "5'a", [0.33, 0.25, 0.57, 0.45], dashed=True, printed_label="")
+squares.add_lines("5'", "5'b", [0.33, 0.45, 0.57, 0.65], dashed=True, printed_label="")
+# squares.add_lines("5'", "5'c", [0.33, 0.65, 0.57, 0.85], dashed=True, printed_label="")
+squares.mark_no_intersection("5'","1","A")
+squares.mark_no_intersection("5'","4","A")
+# squares.mark_no_intersection("5'","1","A")
+
+octic_squares2pdf(squares, "new pu1_5 to pu2_5_6")
+
 
 # squares.remove_line("A:1")
 # squares.remove_line("A:2")
