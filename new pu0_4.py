@@ -44,13 +44,15 @@ octic_squares2pdf(squares, "new pu0_4_1")
 # STEP 2 - blow-up of L_{13}
 squares.remove_line("1:3")
 squares.remove_line("3:1")
-squares.add_lines("4", "4a", [0.4, 0.1, 0.6, 0.3, 'd'], printed_label="")
+squares.mark_no_intersection("4","1","3a")
+# squares.add_lines("4", "4a", [0.4, 0.1, 0.6, 0.3, 'd'], printed_label="")
 octic_squares2pdf(squares, "new pu0_4_2")
 
 # STEP 3 - blow-up of L_{23}
 squares.remove_line("2:3")
 squares.remove_line("3:2")
-squares.add_lines("4", "4b", [0.4, 0.4, 0.6, 0.6, 'd'], printed_label="")
+squares.mark_no_intersection("4","2","3a")
+# squares.add_lines("4", "4b", [0.4, 0.4, 0.6, 0.6, 'd'], printed_label="")
 octic_squares2pdf(squares, "new pu0_4_3")
 
 # STEP 4 - blow-up of L_{14} and L_{24}
