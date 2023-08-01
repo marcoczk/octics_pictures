@@ -20,7 +20,7 @@ squares.add_lines("4", "3", [0, 1, 1, 0])
 
 octic_squares2pdf(squares, "pu0_4 to pu1_4_0")
 
-squares.add_lines("", "E", [0.5, 0, 0.5, 1], printed_label="", squares=["1", "2", "3", "4"], dashed=True)
+# squares.add_lines("", "E", [0.5, 0, 0.5, 1], printed_label="", squares=["1", "2", "3", "4"], dashed=True)
 
 squares.add_lines("1", "4", [0, 0.4, 1, 0.4])
 squares.add_lines("1", "23", [0, 0.6, 1, 0.6])
